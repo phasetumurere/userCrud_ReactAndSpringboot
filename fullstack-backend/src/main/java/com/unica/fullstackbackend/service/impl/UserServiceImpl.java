@@ -1,5 +1,6 @@
 package com.unica.fullstackbackend.service.impl;
 
+import com.unica.fullstackbackend.exception.UserNotFoundException;
 import com.unica.fullstackbackend.model.User;
 import com.unica.fullstackbackend.repository.UserRepository;
 import com.unica.fullstackbackend.service.UserService;
@@ -37,5 +38,14 @@ public class UserServiceImpl implements UserService {
         updatedUser.setName(user.getName());
         updatedUser.setUsername(user.getUsername());
         return repository.save(updatedUser);
+    }
+
+    @Override
+    public String deleteUser(Long id) {
+        if(!repository.existsById(id)){
+            throw new UserNotFoundException(id);
+        }
+        repository.deleteById(id);
+        return "user with id "+id+" Deleted Successfully";
     }
 }

@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
 
 public class UserController {
     @Autowired
@@ -31,5 +30,11 @@ public class UserController {
     @PutMapping("/{id}")
     User updateUser(@RequestBody User user, @PathVariable Long id){
         return userService.updateUser(user);
+    }
+    @DeleteMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Long id){
+
+        userService.deleteUser(id);
+        return "User with ID "+id+" Deleted Succesifully";
     }
 }
